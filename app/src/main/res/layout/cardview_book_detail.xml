@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/bookImageView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:maxHeight="150dp"
             android:adjustViewBounds="true"
             android:layout_margin="2dp"
