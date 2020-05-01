@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+<<<<<<< HEAD
         configureNavigationDrawer();
         configureToolbar();
     }
@@ -77,5 +78,9 @@ public class MainActivity extends AppCompatActivity {
                 // manage other entries if you have it ...
         }
         return true;
+=======
+        CategoryFragment categoryFragment = new CategoryFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, categoryFragment).commit();
+>>>>>>> 48c565174ebafffeadc2f20789fa3d35787d5a3b
     }
 }
