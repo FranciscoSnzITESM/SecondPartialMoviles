@@ -4,8 +4,31 @@
         <item android:id="@+id/home"
             android:title="Home"
             android:icon="@mipmap/bookland_round" />
-        <item android:id="@+id/category"
-        android:title="Category"
+        <item android:id="@+id/ScienceFiction"
+        android:title="Science-Fiction"
         android:icon="@drawable/ic_launcher_background" />
+        <item android:id="@+id/Sports"
+            android:title="Sports"
+            android:icon="@drawable/ic_launcher_background" />
+        <item android:id="@+id/EnglishLiterature"
+            android:title="English Literature"
+            android:icon="@drawable/ic_launcher_background" />
+        <item android:id="@+id/ArtAndCulture"
+            android:title="Art And Culture"
+            android:icon="@drawable/ic_launcher_background" />
+        <item android:id="@+id/Comics"
+            android:title="Comics"
+            android:icon="@drawable/ic_launcher_background" />
+        <item android:id="@+id/SelfHelp"
+            android:title="Self-help"
+            android:icon="@drawable/ic_launcher_background" />
+
+        <item android:id="@+id/FindUs"
+            android:title="Find Us"
+            android:icon="@drawable/ic_launcher_background" />
+        <item android:id="@+id/Email"
+            android:title="Email"
+            android:icon="@drawable/ic_launcher_background" />
+
     </group>
 </menu>

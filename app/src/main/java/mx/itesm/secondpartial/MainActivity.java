@@ -9,6 +9,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame, new Home());
+        transaction.commit();
         configureNavigationDrawer();
         configureToolbar();
     }
@@ -36,10 +41,29 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 Fragment f = null;
                 int itemId = menuItem.getItemId();
-                if (itemId == R.id.category) {
-                    f = new CategoryFragment();
-                } else if (itemId == R.id.home) {
-                   // f = new StopFragment();
+                switch (itemId) {
+                    case R.id.home:
+                        f = new Home();
+                        break;
+                    case R.id.ScienceFiction:
+                        f = new CategoryFragment("Science Fiction");
+                        break;
+                    case R.id.Sports:
+                        f = new CategoryFragment("Sports");
+                        break;
+                    case R.id.EnglishLiterature:
+                        f = new CategoryFragment("English Literature");
+                        break;
+                    case R.id.ArtAndCulture:
+                        f = new CategoryFragment("Art & Culture");
+                        break;
+                    case R.id.Comics:
+                        f = new CategoryFragment("Comics");
+                        break;
+                    case R.id.SelfHelp:
+                        f = new CategoryFragment("Self-help");
+                        break;
+
                 }
                 if (f != null) {
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -56,14 +80,17 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_launcher_foreground);
+        Drawable drawable= getResources().getDrawable(R.drawable.hamburger_icon);
+        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        Drawable newDrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 40, 40, true));
+        actionbar.setHomeAsUpIndicator(newDrawable);
         actionbar.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.nav_items, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
