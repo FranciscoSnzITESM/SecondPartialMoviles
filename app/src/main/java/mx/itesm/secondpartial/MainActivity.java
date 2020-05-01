@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-<<<<<<< HEAD
         configureNavigationDrawer();
         configureToolbar();
     }
@@ -37,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 Fragment f = null;
                 int itemId = menuItem.getItemId();
-                if (itemId == R.id.refresh) {
-                    //f = new RefreshFragment();
-                } else if (itemId == R.id.stop) {
+                if (itemId == R.id.category) {
+                    f = new CategoryFragment();
+                } else if (itemId == R.id.home) {
                    // f = new StopFragment();
                 }
                 if (f != null) {
@@ -78,9 +77,5 @@ public class MainActivity extends AppCompatActivity {
                 // manage other entries if you have it ...
         }
         return true;
-=======
-        CategoryFragment categoryFragment = new CategoryFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, categoryFragment).commit();
->>>>>>> 48c565174ebafffeadc2f20789fa3d35787d5a3b
     }
 }
