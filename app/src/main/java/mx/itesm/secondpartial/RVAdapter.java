@@ -32,7 +32,11 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         Book book = books.get(position);
-        Picasso.get().load(book.getImageUrl()).into(holder.bookImage);
+        Picasso.get()
+                .load(book.getImageUrl())
+                .placeholder(R.drawable.user_placeholder)
+                .error(R.drawable.user_placeholder_error)
+                .into(holder.bookImage);
         holder.bookTitle.setText(book.getTitle());
         holder.bookAuthor.setText(book.getAuthor());
         holder.bookEditorial.setText(book.getEditorial());
