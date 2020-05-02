@@ -8,12 +8,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
@@ -26,9 +24,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame, new Home());
         transaction.commit();
+
         configureNavigationDrawer();
         configureToolbar();
     }
@@ -39,35 +39,41 @@ public class MainActivity extends AppCompatActivity {
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                Fragment f = null;
+                Fragment fragment = null;
                 int itemId = menuItem.getItemId();
                 switch (itemId) {
                     case R.id.home:
-                        f = new Home();
+                        fragment = new Home();
                         break;
                     case R.id.ScienceFiction:
-                        f = new CategoryFragment("Science Fiction");
+                        fragment = new CategoryFragment("scifi");
                         break;
                     case R.id.Sports:
-                        f = new CategoryFragment("Sports");
+                        fragment = new CategoryFragment("sports");
                         break;
                     case R.id.EnglishLiterature:
-                        f = new CategoryFragment("English Literature");
+                        fragment = new CategoryFragment("english");
                         break;
                     case R.id.ArtAndCulture:
-                        f = new CategoryFragment("Art & Culture");
+                        fragment = new CategoryFragment("art");
                         break;
                     case R.id.Comics:
-                        f = new CategoryFragment("Comics");
+                        fragment = new CategoryFragment("comics");
                         break;
                     case R.id.SelfHelp:
-                        f = new CategoryFragment("Self-help");
+                        fragment = new CategoryFragment("self");
+                        break;
+                    case R.id.FindUs:
+                        fragment = new MyMapFragment();
+                        break;
+                    case R.id.Email:
+                        //fragment = new EmailFragment();
                         break;
 
                 }
-                if (f != null) {
+                if (fragment != null) {
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.frame, f);
+                    transaction.replace(R.id.frame, fragment);
                     transaction.commit();
                     drawerLayout.closeDrawers();
                     return true;
@@ -82,15 +88,10 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         Drawable drawable= getResources().getDrawable(R.drawable.hamburger_icon);
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-        Drawable newDrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 40, 40, true));
+        Drawable newDrawable = new BitmapDrawable(getResources(),
+                Bitmap.createScaledBitmap(bitmap, 40, 40, true));
         actionbar.setHomeAsUpIndicator(newDrawable);
         actionbar.setDisplayHomeAsUpEnabled(true);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.nav_items, menu);
-        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -101,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
-                // manage other entries if you have it ...
         }
         return true;
     }
