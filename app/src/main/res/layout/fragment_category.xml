@@ -15,17 +15,17 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:padding="5dp"
             android:text="Books"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/titleColor"
             android:textSize="50sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerBooks"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"/>
+            android:layout_margin="5dp"/>
 
     </LinearLayout>
 
