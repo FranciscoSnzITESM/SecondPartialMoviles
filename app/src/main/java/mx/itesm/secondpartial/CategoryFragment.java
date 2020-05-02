@@ -65,7 +65,7 @@ public class CategoryFragment extends Fragment implements RVAdapter.OnEventListe
 
         // Volley
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        category = "scifi";
+        //category = "scifi";
         String url = "http://androidstorepddm.000webhostapp.com/services/getbooks.php?category="+category;
 
 

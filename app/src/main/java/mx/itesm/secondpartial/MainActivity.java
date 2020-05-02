@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new MyMapFragment();
                         break;
                     case R.id.Email:
-                        //fragment = new EmailFragment();
+                        fragment = new MailFragment();
                         break;
 
                 }
