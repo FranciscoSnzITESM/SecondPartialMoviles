@@ -7,9 +7,9 @@ public class Book {
     private String author;
     private String editorial;
     private String description;
-    private float price;
+    private String price;
 
-    public Book(String imageUrl, String title, String author, String editorial, String description, float price) {
+    public Book(String imageUrl, String title, String author, String editorial, String description, String price) {
         this.imageUrl = imageUrl;
         this.title = title;
         this.author = author;
@@ -58,11 +58,11 @@ public class Book {
         this.description = description;
     }
 
-    public float getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 }

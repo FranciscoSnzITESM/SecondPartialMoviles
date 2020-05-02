@@ -1,5 +1,6 @@
 package mx.itesm.secondpartial;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +18,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -32,6 +36,13 @@ public class CategoryFragment extends Fragment implements RVAdapter.OnEventListe
     private LinearLayoutManager linearLayoutManager;
     private RVAdapter adapter;
     static String category;
+
+    private String bookImage;
+    private String bookTitle;
+    private String bookAuthor;
+    private String bookEditorial;
+    private String bookDescription;
+    private String bookPrice;
 
     public CategoryFragment(String category) {
         this.category = category;
@@ -54,14 +65,33 @@ public class CategoryFragment extends Fragment implements RVAdapter.OnEventListe
 
         // Volley
         RequestQueue queue = Volley.newRequestQueue(getContext());
+        category = "scifi";
         String url = "http://androidstorepddm.000webhostapp.com/services/getbooks.php?category="+category;
 
-        JsonObjectRequest request = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+        JsonArrayRequest request = new JsonArrayRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
 
                     @Override
-                    public void onResponse(JSONObject response) {
-                        System.out.println("Response: " + response.toString());
+                    public void onResponse(JSONArray response) {
+                        JSONArray jsonArray = response;
+                        try {
+                            for(int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject object = jsonArray.getJSONArray(i).getJSONObject(0);
+                                bookImage = object.getString("url_picture");
+                                bookTitle = object.getString("title");
+                                bookAuthor = object.getString("author");
+                                bookEditorial = object.getString("editorial");
+                                bookDescription = object.getString("description");
+                                bookPrice = object.getString("price");
+                                books.add(new Book(bookImage, bookTitle, bookAuthor, bookEditorial, bookDescription, bookPrice));
+                            }
+                            adapter = new RVAdapter(books, eventListener);
+                            recycler.setAdapter(adapter);
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
 
@@ -74,14 +104,6 @@ public class CategoryFragment extends Fragment implements RVAdapter.OnEventListe
 
         // Add the request to the RequestQueue.
         queue.add(request);
-
-
-        books.add(new Book("http://androidstorepddm.000webhostapp.com/images/covey.jpg", "Some Title", "Some Author", "Cool Editorial", "This is the descripion of the book", 78.2f));
-        books.add(new Book("http://androidstorepddm.000webhostapp.com/images/deco.jpg", "Some Title 2", "Some Author 2", "Cool Editorial", "This is the descripion of the second book", 17.9f));
-
-
-        adapter = new RVAdapter(books, this);
-        recycler.setAdapter(adapter);
 
         return view;
     }
@@ -98,6 +120,13 @@ public class CategoryFragment extends Fragment implements RVAdapter.OnEventListe
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setMessage(description).setTitle("Description");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked OK button
+            }
+        });
+
 
         AlertDialog dialog = builder.create();
 
