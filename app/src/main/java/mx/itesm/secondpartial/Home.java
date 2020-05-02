@@ -12,10 +12,6 @@ import android.view.ViewGroup;
 
 public class Home extends Fragment {
 
-    public static Home newInstance() {
-        return new Home();
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
